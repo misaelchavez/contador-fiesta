@@ -11,21 +11,46 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
             margin: 0;
             text-align: center;
+            color: #fff;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
         }
         .contador {
             font-size: 2em;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
+    <div class="overlay"></div>
     <div class="contador">
         Faltan <span id="hours"></span> horas, <span id="minutes"></span> minutos y <span id="seconds"></span> segundos para salir a pistear con los compas.
     </div>
 
     <script>
+        const images = [
+            'https://media.istockphoto.com/id/1478060515/es/foto/hombre-adulto-latino-medio-sonriendo-celebrando-buenas-noticias-con-el-pu%C3%B1o-en-alto.jpg?s=1024x1024&w=is&k=20&c=lMOUNsCNQX3pDrVYPTFqc5KmdxvJ_fceCRyePS-3Gts=',  // Reemplaza con URLs reales de imágenes
+            'https://cdn.pixabay.com/photo/2016/04/15/13/35/kids-1331011_1280.jpg',
+        ];
+
+        let currentIndex = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = `url(${images[currentIndex]})`;
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
         function updateCounter() {
             const targetDate = new Date('2024-06-21T21:00:00');
             const now = new Date();
@@ -42,6 +67,10 @@
 
         updateCounter();
         setInterval(updateCounter, 1000); // Actualiza cada segundo
+        setInterval(changeBackground, 5000); // Cambia el fondo cada 5 segundos
+
+        // Inicializa el fondo
+        changeBackground();
     </script>
 </body>
 </html>
