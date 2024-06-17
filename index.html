@@ -22,7 +22,7 @@
 </head>
 <body>
     <div class="contador">
-        Faltan <span id="hours"></span> horas para salir a pistear con los compas.
+        Faltan <span id="hours"></span> horas, <span id="minutes"></span> minutos y <span id="seconds"></span> segundos para salir a pistear con los compas.
     </div>
 
     <script>
@@ -30,12 +30,18 @@
             const targetDate = new Date('2024-06-21T21:00:00');
             const now = new Date();
             const diff = targetDate - now;
+
             const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
             document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
         }
 
         updateCounter();
-        setInterval(updateCounter, 3600000); // Actualiza cada hora
+        setInterval(updateCounter, 1000); // Actualiza cada segundo
     </script>
 </body>
 </html>
